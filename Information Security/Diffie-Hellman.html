@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Diffie-Hellman Key Exchange</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { margin: 8px 0; padding: 6px; }
+    .output { margin-top: 20px; background: #f5f5f5; padding: 10px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>Diffie-Hellman Key Exchange</h2>
+
+  <p><strong>Public Prime (p):</strong> <span id="primeP">23</span></p>
+  <p><strong>Public Base (g):</strong> <span id="baseG">5</span></p>
+
+  <label for="alicePrivate">Enter your private key (Alice):</label><br>
+  <input type="number" id="alicePrivate" placeholder="e.g., 6"><br>
+
+  <button onclick="computeSharedKey()">Generate Shared Key</button>
+  
+  <div class="output" id="outputArea" style="display: none;">
+    <p><strong>Alice's Public Key (A):</strong> <span id="alicePublic"></span></p>
+    <p><strong>Bob's Public Key (B):</strong> <span id="bobPublic"></span></p>
+    <p><strong>Shared Secret (Alice):</strong> <span id="sharedKeyAlice"></span></p>
+    <p><strong>Shared Secret (Bob):</strong> <span id="sharedKeyBob"></span></p>
+  </div>
+
+  <script>
+    function modPow(base, exponent, mod) {
+      let result = 1;
+      base = base % mod;
+      while (exponent > 0) {
+        if (exponent % 2 === 1) {
+          result = (result * base) % mod;
+        }
+        exponent = Math.floor(exponent / 2);
+        base = (base * base) % mod;
+      }
+      return result;
+    }
+
+    function computeSharedKey() {
+      const p = 23;
+      const g = 5;
+
+      const alicePrivate = parseInt(document.getElementById("alicePrivate").value);
+      if (isNaN(alicePrivate) || alicePrivate <= 0) {
+        alert("Please enter a valid private key for Alice.");
+        return;
+      }
+
+      const bobPrivate = Math.floor(Math.random() * 10) + 1;
+
+      const A = modPow(g, alicePrivate, p);
+      const B = modPow(g, bobPrivate, p);
+
+      const sharedKeyAlice = modPow(B, alicePrivate, p);
+      const sharedKeyBob = modPow(A, bobPrivate, p);
+
+      document.getElementById("alicePublic").textContent = A;
+      document.getElementById("bobPublic").textContent = B;
+      document.getElementById("sharedKeyAlice").textContent = sharedKeyAlice;
+      document.getElementById("sharedKeyBob").textContent = sharedKeyBob;
+      document.getElementById("outputArea").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
