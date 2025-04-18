@@ -1,17 +1,10 @@
-def process_string(string, operation):
-    result = ""
-    for char in string:
-        if operation == 'AND':
-            result += chr(ord(char) & 127)
-        elif operation == 'XOR':
-            result += chr(ord(char) ^ 127)
-    return result
+s = "Hello World"
 
-input_string = "Hello, World!"
-print("Input String:", input_string)
+print(f"{'Char':^6} {'ASCII':^8} {'&127':^8} {'^127':^8}")
+print("-" * 32)
 
-result = process_string(input_string, 'AND')
-print("Result (AND):", result)
-
-result = process_string(input_string, 'XOR')
-print("Result (XOR):", result)
+for c in s:
+    original = ord(c)
+    and_val = original & 127
+    xor_val = original ^ 127
+    print(f"{c:^6} {original:^8} {and_val:^8} {xor_val:^8}")
