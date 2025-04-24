@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class AssNo05ChatBot{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("----Welcome to MET-BKC----\n");
