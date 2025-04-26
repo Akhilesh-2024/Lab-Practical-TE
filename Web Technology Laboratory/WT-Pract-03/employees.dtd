@@ -1,0 +1,12 @@
+<!ELEMENT employees (employee+)>
+<!ATTLIST employees
+    xmlns:xsi CDATA #IMPLIED
+    xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+<!ELEMENT employee (name, position, department, salary, hire_date)>
+<!ATTLIST employee id CDATA #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT position (#PCDATA)>
+<!ELEMENT department (#PCDATA)>
+<!ELEMENT salary (#PCDATA)>
+<!ELEMENT hire_date (#PCDATA)>

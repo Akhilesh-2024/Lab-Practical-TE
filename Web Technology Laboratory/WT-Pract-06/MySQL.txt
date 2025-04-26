@@ -1,0 +1,18 @@
+CREATE DATABASE student_db;
+
+USE student_db;
+
+CREATE TABLE students_info (
+    stud_id INT PRIMARY KEY,
+    stud_name VARCHAR(100) NOT NULL,
+    class VARCHAR(50) NOT NULL,
+    division VARCHAR(10) NOT NULL,
+    city VARCHAR(100) NOT NULL
+);
+
+INSERT INTO students_info VALUES
+(101, 'Rahul Sharma', '10', 'A', 'Mumbai'),
+(102, 'Priya Patel', '9', 'B', 'Delhi'),
+(103, 'Amit Kumar', '11', 'C', 'Bangalore'),
+(104, 'Neha Gupta', '10', 'A', 'Kolkata'),
+(105, 'Sandeep Joshi', '12', 'D', 'Pune');

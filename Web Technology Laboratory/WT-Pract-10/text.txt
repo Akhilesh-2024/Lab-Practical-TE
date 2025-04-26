@@ -1,0 +1,21 @@
+BankingApp/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── banking/
+│   │   │           ├── ejb/
+│   │   │           │   ├── AccountService.java (Remote interface)
+│   │   │           │   ├── AccountServiceImpl.java (Stateless EJB)
+│   │   │           │   └── TransactionException.java
+│   │   │           ├── model/
+│   │   │           │   └── Account.java
+│   │   │           └── web/
+│   │   │               └── AccountServlet.java
+│   │   └── webapp/
+│   │       ├── WEB-INF/
+│   │       │   └── web.xml
+│   │       ├── index.jsp
+│   │       ├── deposit.jsp
+│   │       └── withdraw.jsp
+├── pom.xml

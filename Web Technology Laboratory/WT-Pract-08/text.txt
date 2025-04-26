@@ -1,0 +1,21 @@
+/StrutsLoginProject/
+│── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/
+│       │       └── example/
+│       │           ├── actions/
+│       │           │   └── LoginAction.java
+│       │           └── model/
+│       │               └── User.java
+│       ├── resources/
+│       │   └── LoginAction-validation.xml
+│       └── webapp/
+│           ├── WEB-INF/
+│           │   ├── web.xml
+│           │   └── struts.xml
+│           ├── css/
+│           │   └── style.css
+│           ├── login.jsp
+│           ├── welcome.jsp
+│           └── error.jsp

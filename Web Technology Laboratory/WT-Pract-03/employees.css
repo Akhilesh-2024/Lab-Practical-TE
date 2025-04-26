@@ -1,0 +1,29 @@
+employee {
+  display: table-row;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+name, position, department, salary, hire_date {
+  display: table-cell;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+employees {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+employee:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+employee:first-child {
+  font-weight: bold;
+  background-color: #8B0000;
+  color: white;
+}

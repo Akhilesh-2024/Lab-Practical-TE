@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Banking Portal</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .account-form {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-success {
+            background: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background: #219955;
+        }
+        
+        .btn-danger {
+            background: var(--danger-color);
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .account-info {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .account-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .detail-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .detail-label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-bottom: 0.3rem;
+        }
+        
+        .detail-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .balance {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--primary-color);
+        }
+        
+        .transaction-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert-success {
+            background: #d5f5e3;
+            color: var(--success-color);
+            border: 1px solid #a3e4bc;
+        }
+        
+        .alert-danger {
+            background: #fadbd8;
+            color: var(--danger-color);
+            border: 1px solid #f5b7b1;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .account-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .transaction-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Online Banking Portal</h1>
+            <p class="subtitle">Manage your account transactions securely</p>
+        </header>
+        
+        <div class="alert alert-success" id="successAlert">
+            Transaction completed successfully!
+        </div>
+        
+        <div class="alert alert-danger" id="errorAlert">
+            Error: Insufficient funds for withdrawal.
+        </div>
+        
+        <div class="account-form">
+            <div class="form-group">
+                <label for="accountNumber">Account Number</label>
+                <input type="text" id="accountNumber" placeholder="Enter your account number">
+            </div>
+            <button class="btn" id="findAccountBtn">Find Account</button>
+        </div>
+        
+        <div class="account-info" id="accountInfo">
+            <div class="account-details">
+                <div class="detail-item">
+                    <div class="detail-label">Account Number</div>
+                    <div class="detail-value" id="displayAccountNumber">123456789</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Account Holder</div>
+                    <div class="detail-value" id="displayAccountHolder">John Doe</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Account Type</div>
+                    <div class="detail-value">Savings</div>
+                </div>
+            </div>
+            
+            <div class="balance">
+                Current Balance: <span id="displayBalance">$5,000.00</span>
+            </div>
+            
+            <div class="transaction-form">
+                <div class="form-group">
+                    <label for="transactionAmount">Amount</label>
+                    <input type="number" id="transactionAmount" placeholder="0.00" step="0.01" min="0">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success" id="depositBtn">Deposit</button>
+                    <button class="btn btn-danger" id="withdrawBtn">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const accountNumberInput = document.getElementById('accountNumber');
+        const findAccountBtn = document.getElementById('findAccountBtn');
+        const accountInfo = document.getElementById('accountInfo');
+        const displayAccountNumber = document.getElementById('displayAccountNumber');
+        const displayAccountHolder = document.getElementById('displayAccountHolder');
+        const displayBalance = document.getElementById('displayBalance');
+        const transactionAmount = document.getElementById('transactionAmount');
+        const depositBtn = document.getElementById('depositBtn');
+        const withdrawBtn = document.getElementById('withdrawBtn');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+
+        const sampleAccount = {
+            accountNumber: '123456789',
+            accountHolder: 'Akhilesh',
+            balance: 5000.00
+        };
+
+        findAccountBtn.addEventListener('click', () => {
+            if (accountNumberInput.value.trim() === '') {
+                showError('Please enter an account number');
+                return;
+            }
+            
+            setTimeout(() => {
+                displayAccountInfo(sampleAccount);
+                showSuccess('Account found successfully');
+            }, 500);
+        });
+
+        depositBtn.addEventListener('click', () => {
+            const amount = parseFloat(transactionAmount.value);
+            if (isNaN(amount) || amount <= 0) {
+                showError('Please enter a valid amount');
+                return;
+            }
+            
+            setTimeout(() => {
+                sampleAccount.balance += amount;
+                displayAccountInfo(sampleAccount);
+                showSuccess(`Successfully deposited $${amount.toFixed(2)}`);
+                transactionAmount.value = '';
+            }, 500);
+        });
+
+        withdrawBtn.addEventListener('click', () => {
+            const amount = parseFloat(transactionAmount.value);
+            if (isNaN(amount)) {
+                showError('Please enter a valid amount');
+                return;
+            }
+            
+            if (amount <= 0) {
+                showError('Amount must be positive');
+                return;
+            }
+            
+            if (amount > sampleAccount.balance) {
+                showError('Insufficient funds for withdrawal');
+                return;
+            }
+            
+            setTimeout(() => {
+                sampleAccount.balance -= amount;
+                displayAccountInfo(sampleAccount);
+                showSuccess(`Successfully withdrew $${amount.toFixed(2)}`);
+                transactionAmount.value = '';
+            }, 500);
+        });
+
+        function displayAccountInfo(account) {
+            displayAccountNumber.textContent = account.accountNumber;
+            displayAccountHolder.textContent = account.accountHolder;
+            displayBalance.textContent = `$${account.balance.toFixed(2)}`;
+            accountInfo.style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            successAlert.textContent = message;
+            successAlert.style.display = 'block';
+            errorAlert.style.display = 'none';
+            
+            setTimeout(() => {
+                successAlert.style.display = 'none';
+            }, 5000);
+        }
+
+        function showError(message) {
+            errorAlert.textContent = message;
+            errorAlert.style.display = 'block';
+            successAlert.style.display = 'none';
+            
+            setTimeout(() => {
+                errorAlert.style.display = 'none';
+            }, 5000);
+        }
+
+        displayAccountInfo(sampleAccount);
+    </script>
+</body>
+</html>

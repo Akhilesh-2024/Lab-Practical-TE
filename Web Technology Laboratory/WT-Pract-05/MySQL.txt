@@ -1,0 +1,18 @@
+CREATE DATABASE ebookshop;
+
+USE ebookshop;
+
+CREATE TABLE books (
+    book_id INT PRIMARY KEY,
+    book_title VARCHAR(100) NOT NULL,
+    book_author VARCHAR(100) NOT NULL,
+    book_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL
+);
+
+INSERT INTO books VALUES
+(1001, 'Java for Beginners', 'John Doe', 29.99, 50),
+(1002, 'Advanced Python', 'Jane Smith', 39.99, 30),
+(1003, 'Web Development', 'Mike Johnson', 34.50, 45),
+(1004, 'Database Systems', 'Sarah Williams', 49.99, 25),
+(1005, 'Algorithms', 'David Brown', 54.99, 35);
