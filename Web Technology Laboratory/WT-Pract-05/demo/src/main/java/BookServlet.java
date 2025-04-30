@@ -5,8 +5,8 @@ import javax.servlet.http.*;
 
 public class BookServlet extends HttpServlet {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/ebookshop";
-    private static final String JDBC_USER = "your_username";
-    private static final String JDBC_PASSWORD = "your_password";
+    private static final String JDBC_USER = "root";
+    private static final String JDBC_PASSWORD = "Root@123";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -1,4 +1,3 @@
-// A Star for Puzzzle Problem
 
 import java.io.*;  
 import java.util.*;  
